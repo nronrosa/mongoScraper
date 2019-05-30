@@ -89,14 +89,15 @@ app.get("/scrape", function (req, res) {
       
       // Add the text and href of every link, and save them as properties of the result object
       result.title = $(this).find(".story-tease-title").text();
-      console.log("title: " + result.title);
+     
       result.link = "https://www.elnuevodia.com" + $(this).find("a").attr("href");
-      console.log("link: " + result.link);
+    
       result.summary = $(this).find(".story-tease-summary").children("p").text();
-      console.log("summary" + result.summary);
+    
 
       // Create a new Article using the `result` object built from scraping
-   
+      console.log(result);
+
       db.Article.create(result)
         .then(function (dbArticle) {
           // View the added result in the console
