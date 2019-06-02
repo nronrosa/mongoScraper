@@ -1,0 +1,46 @@
+.background {
+    background-image: url("../images/funky-lines.png");
+}
+
+.jumbotron {
+    background-image: url("../images/periodicos.png");
+    width: 100%;
+    height: auto;
+    font-family: 'Bevan', cursive;
+    margin-top: 2%;
+}
+
+.jumbotron p {
+    font-size: 30px;
+}
+
+.card-heading {
+    background-color: gold;
+    padding-left: 1%;
+}
+
+.card {
+    margin-bottom: 2%;
+}
+
+.nav-bg {
+    background-color: #007bff;
+}
+
+.transbox{
+    background-color: rgb(202, 202, 202);
+    text-align: center;
+}
+
+.nav-foot {
+    background-color:  rgb(202, 202, 202);
+    text-align: center;
+}
+
+.navbar  {
+    font-family: 'Bevan', cursive;
+    font-weight: 400;
+    color: white;
+    padding: 10px;
+}
+

@@ -22,6 +22,20 @@ var ArticleSchema = new Schema({
     type: String,
     required: true
   },
+  // boolean to save article
+  saved: {
+    type: Boolean,
+    default: false
+  },
+  // date created
+  created: {
+    type: Date,
+    default: Date.now
+  },
+  articleTime: {
+    type: String,
+    required: true
+  },
   // `note` is an object that stores a Note id
   // The ref property links the ObjectId to the Note model
   // This allows us to populate the Article with an associated Note
