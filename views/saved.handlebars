@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
-        <a class="btn btn-success" id="scrape">Scrape Articles/Raspar Artículos</a>
+        {{!-- <a class="btn btn-success" id="scrape">Scrape Articles/Raspar Artículos</a> --}}
         <a class="nav-item nav-link" href="/saved">Saved Articles/Artículos Guardados</a>
       </div>
     </div>
@@ -27,7 +27,7 @@
         {{!-- articles --}}
         {{#if article}}
         {{#each article}}
-        <div class="card">
+        <div class="card" data-id={{this._id}}>
           <div class="card-heading">
             <h4><a href={{this.link}} target="_blank">{{this.title}}</a></h4>
           </div>
@@ -65,29 +65,34 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4>Notes for article</h4>
+        <h4>notes for article / notas para artículo</h4>
         <h4 class="modal-title text-center"></h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-<div class="container-fluid">
-        <form id="confess-submit">
-          <div class="form-group">
-            <div id="article-note-title"></div>
-            <label for="message-text" class="col-form-label">
+        <div class="container-fluid">
+          <form id="confess-submit">
+            <div class="form-group">
+              <div id="article-note-title"></div>
+              <div id="article-note-id"></div>
+              <label for="message-text" class="col-form-label">
+              </label>
+              <textarea class="form-control" id="message-text" placeholdder="Write your note here" required></textarea>
+              <br>
+              <div id="sumbit-text"> </div>
 
-            </label>
-            <textarea class="form-control" id="message-text" placeholdder="Write your note here" required></textarea>
-          </div>
-      </div>
-      <div class="previous-notes">xxxxx</div>
-</div>
+            </div>
+        </div>
+        <div class="previous-notes">xxxxx</div>
 
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-success submit-noteBtn">Save changes</button>
+
+        <div class="modal-footer">
+        
+        <button type="submit" class="btn btn-success submit-noteBtn" name="carajo">Submit Note</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
       </div>
       </form>
     </div>
