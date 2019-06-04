@@ -144,7 +144,12 @@ module.exports = function (app) {
     });
 
 
-// ARTICLES NOTES
+
+
+
+
+    
+    // ARTICLES NOTES
     // Route for grabbing a specific Article by id, populate it with it's note
     app.get("/articles/:id", function (req, res) {
         // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
@@ -155,6 +160,11 @@ module.exports = function (app) {
             .populate("note")
             .then(function (dbArticle) {
                 // If we were able to successfully find an Article with the given id, send it back to the client
+                console.log(dbArticle);
+                console.log("****route**************************")
+                console.log(dbArticle);
+
+
                 res.json(dbArticle);
             })
             .catch(function (err) {
@@ -167,33 +177,20 @@ module.exports = function (app) {
     // Route for saving/updating an Article's associated Note
     app.post("/articles/:id", function (req, res) {
         // Create a new note and pass the req.body to the entry
-        console.log(req.body)
-        console.log("***********************");
-
-
         db.Note.create(req.body)
             .then(function (dbNote) {
-                return db.Article.findOneAndUpdate(
-                    { _id: req.params.id },
-                    { $push: { note: dbNote._id } },
-                    { new: true }
-
-
-                //     _id: req.params.id
-                // }, {
-                //     note: dbNote._id
-                // }, {
-                //     new: true
-                // }, {
-                //     $push: {
-                //         notes: req.body.note
-                //     }
-                );
+                return db.Article.findOneAndUpdate({
+                    _id: req.params.id
+                }, {
+                    $push: {
+                        note: dbNote._id
+                    }
+                }, {
+                    new: true
+                });
             })
             .then(function (dbArticle) {
                 // If we were able to successfully update an Article, send it back to the client]
-                console.log(dbArticle);
-                console.log(dbNote);
                 res.json(dbArticle);
             })
             .catch(function (err) {

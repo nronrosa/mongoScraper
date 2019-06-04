@@ -4,8 +4,7 @@ $("#scrape").on("click", function () {
         method: "GET",
         url: "/scrape",
     }).done(function (data) {
-        // window.location = "/"
-        location.reload();
+        window.location = "/"
     })
 });
 
@@ -16,9 +15,7 @@ $(".saveArticle").on("click", function () {
         method: "PUT",
         url: "/article/save/" + thisId
     }).done(function (data) {
-        console.log("saved this article: " + data);
-        // window.location = "/"
-        location.reload();
+        window.location = "/"
     })
 });
 
@@ -29,8 +26,7 @@ $(".delete-from-save").on("click", function () {
         method: "POST",
         url: "/articles/delete/" + thisId
     }).done(function (data) {
-        // window.location = "/saved"
-        location.reload();
+        window.location = "/saved"
     })
 });
 
@@ -51,20 +47,28 @@ $(".article-notes").on("click", function () {
         })
         // With that done, add the note information to the page
         .then(function (data) {
-
             // The title of the article
             $("#article-note-title").append("<h5>" + data.title + "</h5>");
             $("#article-note-title").attr("data-id", thisId);
             $("#article-note-id").append("<small>" + thisId + "</small>");
 
+
+            console.log(data);
+
+            console.log("app.js @@@@@@@@@@@@@@@@@@@@@");
             // If there's a note in the article
             if (data.note) {
-                // Place the title of the note in the title input
-                $("#titleinput").val(data.note.title);
                 // Place the body of the note in the body textarea
-                $("#bodyinput").val(data.note.body);
+                $(".previous-notes").val(data.note.body);
+
+                console.log(data.note);
+
             }
+
+
         });
+
+
     $("#notesModal").modal("show");
 })
 
@@ -79,48 +83,14 @@ $(".submit-noteBtn").on("click", function () {
         url: "/articles/" + thisId,
         data: {
             body: $("#message-text").val(),
-            // title: $("#titleinput").val()
         }
     }).done(function (data) {
-        // window.location = "/saved"
-        console.log(data);
-        console.log("**********data*********");
-
-        // Empty the notes section
-        //   $("#notes").empty();
-        // location.reload();
+        window.location = "/saved"
     })
-
-    $("#message-text").val("");
 });
 
 
 
-
-//Sets up a function for posting a new comment
-function postComment() {
-    //Whenever someone clicks the "Post" button...
-    $(document).on("click", ".post-comment", function () {
-        //Save the ID from that button
-        var thisId = $(this).attr("data-id");
-
-        //Send a POST request to the server
-        $.ajax({
-            method: "POST",
-            url: "/articles/" + thisId,
-            data: {
-                //Value taken from the Name input
-                name: $("#name").val(),
-                // Value taken from Comment textarea
-                body: $("#comment").val()
-            }
-        });
-
-        //Remove the values entered currently typed into the form
-        $("#name").val("");
-        $("#comment").val("");
-    });
-}
 
 
 
@@ -134,6 +104,6 @@ function postComment() {
 // clear db
 $(".clearDb").on("click", function () {
     $.get("article/clear").then(function (data) {
-        location.reload();
+        window.location = "/"
     });
 });
