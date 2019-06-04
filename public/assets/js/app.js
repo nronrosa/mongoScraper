@@ -59,13 +59,16 @@ $(".article-notes").on("click", function () {
             // If there's a note in the article
             if (data.note) {
                 // Place the body of the note in the body textarea
-                $(".previous-notes").val(data.note.body);
+                $(".previous-notes").val(data.note);
 
                 console.log(data.note);
 
             }
 
 
+
+
+            
         });
 
 
