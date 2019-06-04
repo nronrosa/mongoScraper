@@ -5,6 +5,7 @@ A web app that lets users view and leave comments on the latest news. These arti
 
 ### Demo 
 * Interact with completed app [demo](xxx).
+![Image](/public/assets/images/mongoScraper.png)
 
 ### What this project uses
 This project uses Nodejs, JavaScript, HTML, CSS, JQuery, Express, JSON, MySQL, Handlebars, NPM packages, mongoose, cheerio, axios and deployed to Heroku.
