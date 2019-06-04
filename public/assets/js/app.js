@@ -51,24 +51,39 @@ $(".article-notes").on("click", function () {
             $("#article-note-title").append("<h5>" + data.title + "</h5>");
             $("#article-note-title").attr("data-id", thisId);
             $("#article-note-id").append("<small>" + thisId + "</small>");
+            $(".submit-noteBtn").attr("data-id", thisId);
 
+            // console.log(data);
+            // console.log("app.js @@@@@@@@@@@@@@@@@@@@@");
 
-            console.log(data);
+            // insesrt here validation for message-text
 
-            console.log("app.js @@@@@@@@@@@@@@@@@@@@@");
             // If there's a note in the article
             if (data.note) {
                 // Place the body of the note in the body textarea
-                $(".previous-notes").val(data.note);
-
-                console.log(data.note);
-
-            }
 
 
+                // console.log("aqui estas");
+                // console.log(data.note);
+
+                for (var i = 0; i < data.note.length; i++) {
+                    console.log(data.note[i].body);
+
+                    // console.log(data.note[i].created);
+                    // $(".previous-notes").attr("class='card'");
+                    var noteCard = $("<div class='card'>");
+                    var noteCardBody = $("<div class=card-body>")
+                    var noteCardyBodyText = $("<p>").text(data.note[i].body);
+
+                    $(".previous-notes").append(noteCard);
+                    $(noteCard).append(noteCardBody);
+                    $(noteCardBody).append(noteCardyBodyText);
+                    $(noteCardyBodyText).append("<button class='delete-note-btn btn btn-danger' data-id=" + data.note[i]._id + ">x</button>");
 
 
-            
+                }
+            };
+
         });
 
 
@@ -94,7 +109,18 @@ $(".submit-noteBtn").on("click", function () {
 
 
 
-
+// Delete Article Note button
+$(".delete-note-btn").on("click", function () {
+    alert("dlete");
+    var thisId = $(this).attr("data-id");
+    console.log("data id of delete button: " + thisId);
+    $.ajax({
+        method: "DELETE",
+        url: "/note/delete/" + thisId
+    }).done(function (data) {
+        window.location = "/saved"
+    })
+});
 
 
 

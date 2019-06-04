@@ -22,17 +22,12 @@ app.use(express.static("public"));
 
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/mongoScraper", {
-    useNewUrlParser: true
-});
-// var db = process.env.MONGODB_URI || "mongodb://localhost/mongoScraper";
-
-// This makes sure that any errors are logged if mongodb runs into an issue
-// mongoose.connect(db, function (error) {
-//   if (error) {
-//     console.log("Database Error:", error);
-//   }
+// mongoose.connect("mongodb://localhost/mongoScraper", {
+//     useNewUrlParser: true
 // });
+
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoScraper";
+mongoose.connect(MONGODB_URI);
 
 // Handlebars
 app.engine(

@@ -148,7 +148,6 @@ module.exports = function (app) {
 
 
 
-    
     // ARTICLES NOTES
     // Route for grabbing a specific Article by id, populate it with it's note
     app.get("/articles/:id", function (req, res) {
@@ -160,9 +159,9 @@ module.exports = function (app) {
             .populate("note")
             .then(function (dbArticle) {
                 // If we were able to successfully find an Article with the given id, send it back to the client
-                console.log(dbArticle);
-                console.log("****route**************************")
-                console.log(dbArticle);
+                // console.log(dbArticle);
+                // console.log("****route**************************")
+                
 
 
                 res.json(dbArticle);
@@ -201,7 +200,22 @@ module.exports = function (app) {
 
 
 
-
+    // delete a Article Note from database
+    app.delete("/note/delete/:id", function (req, res) {
+        db.Note.deleteOne({
+                _id: req.params.id
+            })
+            .then(function (dbNote) {
+                // res.json(dbArticle);
+                // res.render("/");
+                // {_id: req.params.id}
+                alert("deleted: " + req.body._id);
+            })
+            .catch(function (err) {
+                res.json(err);
+            });
+        res.send(true)
+    });
 
 
 
