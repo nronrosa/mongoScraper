@@ -202,14 +202,12 @@ module.exports = function (app) {
 
     // delete a Article Note from database
     app.delete("/note/delete/:id", function (req, res) {
-        db.Note.deleteOne({
-                _id: req.params.id
+
+        db.Note.findByIdAndDelete({
+                "_id": req.params.id
             })
             .then(function (dbNote) {
-                // res.json(dbArticle);
-                // res.render("/");
-                // {_id: req.params.id}
-                alert("deleted: " + req.body._id);
+                // res.json(dbNote);                
             })
             .catch(function (err) {
                 res.json(err);
