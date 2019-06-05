@@ -9,8 +9,6 @@ var cheerio = require("cheerio");
 var db = require("../models");
 
 module.exports = function (app) {
-
-    //GET requests to render Handlebars pages
     // Render home/index
     app.get("/", function (req, res) {
         db.Article.find({
@@ -53,8 +51,6 @@ module.exports = function (app) {
                 result.summary = $(this).find(".story-tease-summary").text();
                 result.articleTime = $(this).find(".story-tease-date").text();
                 // Create a new Article using the `result` object built from scraping
-                console.log(result);
-
                 db.Article.create(result)
                     .then(function (dbArticle) {
                         // View the added result in the console
@@ -65,7 +61,6 @@ module.exports = function (app) {
                         console.log(err);
                     });
             });
-
             // Send a message to the client
             res.send("Scrape Complete");
         });
@@ -98,8 +93,6 @@ module.exports = function (app) {
             })
             .then(function (dbArticle) {
                 // If we were able to successfully update an Article, send it back to the client
-                console.log(dbArticle);
-                // res.render("/", dbArticle);
                 res.json(dbArticle);
             })
             .catch(function (err) {
@@ -120,7 +113,6 @@ module.exports = function (app) {
             // Execute the above query
             .then(function (dbArticle) {
                 // If we were able to successfully delete an Article
-                // alert("article deleted");
                 res.json(dbArticle);
             })
             .catch(function (err) {
@@ -131,10 +123,8 @@ module.exports = function (app) {
 
     // clear all articles from database
     app.get("/article/clear", function (req, res) {
-        console.log(req.body)
         db.Article.deleteMany({})
             .then(function (dbArticle) {
-                // res.json(dbArticle);
                 res.render("/");
             })
             .catch(function (err) {
@@ -142,11 +132,6 @@ module.exports = function (app) {
             });
         res.send(true)
     });
-
-
-
-
-
 
     // ARTICLES NOTES
     // Route for grabbing a specific Article by id, populate it with it's note
@@ -159,11 +144,6 @@ module.exports = function (app) {
             .populate("note")
             .then(function (dbArticle) {
                 // If we were able to successfully find an Article with the given id, send it back to the client
-                // console.log(dbArticle);
-                // console.log("****route**************************")
-                
-
-
                 res.json(dbArticle);
             })
             .catch(function (err) {
@@ -198,11 +178,8 @@ module.exports = function (app) {
             });
     });
 
-
-
     // delete a Article Note from database
     app.delete("/note/delete/:id", function (req, res) {
-
         db.Note.findByIdAndDelete({
                 "_id": req.params.id
             })
@@ -214,7 +191,4 @@ module.exports = function (app) {
             });
         res.send(true)
     });
-
-
-
 };

@@ -32,6 +32,7 @@ var ArticleSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  // Time of article
   articleTime: {
     type: String,
     required: true
