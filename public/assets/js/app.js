@@ -50,8 +50,6 @@ $(".article-notes").on("click", function () {
             $("#article-note-id").append("<small>" + thisId + "</small>");
             $(".submit-noteBtn").attr("data-id", thisId);
 
-            // insesrt here validation for message-text
-
             // If there's a note in the article
             if (data.note) {
                 // Place the body of the note in the body textarea
@@ -64,6 +62,17 @@ $(".article-notes").on("click", function () {
                     $(noteCardBody).append(noteCardyBodyText);
                     $(noteCardyBodyText).append("<button class='btn btn-danger delete-note-btn' data-id=" + data.note[i]._id + ">x</button>");
                 }
+
+                // Delete Article Note button
+                $(".delete-note-btn").on("click", function () {
+                    var thisId = $(this).attr("data-id");
+                    $.ajax({
+                        method: "DELETE",
+                        url: "/note/delete/" + thisId
+                    }).done(function (data) {
+                        window.location = "/saved"
+                    })
+                });
             };
         });
     $("#notesModal").modal("show");
@@ -71,27 +80,22 @@ $(".article-notes").on("click", function () {
 
 // Submit Article Note button
 $(".submit-noteBtn").on("click", function () {
-    var thisId = $(this).attr("data-id");
-    $.ajax({
-        method: "POST",
-        url: "/articles/" + thisId,
-        data: {
-            body: $("#message-text").val(),
-        }
-    }).done(function (data) {
-        window.location = "/saved"
-    })
-});
+    var textSubmission = $("#message-text").val()
+    if (textSubmission == "") {
+        $("notesModalSubmissionMsg").modal("show");
+    } else {
 
- // Delete Article Note button
- $(".delete-note-btn").on("click", function () {
-    var thisId = $(this).attr("data-id");
-    $.ajax({
-        method: "DELETE",
-        url: "/note/delete/" + thisId
-    }).done(function (data) {
-        window.location = "/saved"
-    })
+        var thisId = $(this).attr("data-id");
+        $.ajax({
+            method: "POST",
+            url: "/articles/" + thisId,
+            data: {
+                body: $("#message-text").val(),
+            }
+        }).done(function (data) {
+            window.location = "/saved"
+        })
+    }
 });
 
 // clear db
