@@ -4,7 +4,7 @@
 A web app that lets users view and leave comments on the latest news. These articles are not written or saved they are scraped news from another site using Mongoose and Cheerio muscles.
 
 ### Demo 
-* Interact with completed app [demo](xxx).
+* Interact with completed app [demo](https://sheltered-meadow-21020.herokuapp.com/).
 ![Image](/public/assets/images/mongoScraper.png)
 
 ### What this project uses
